@@ -3,7 +3,7 @@
 //  p07-muratore-hamel-moshier
 //
 //  Created by Anthony Muratore on 4/25/17.
-//  Copyright © 2017 Anthony Muratore. All rights reserved.
+//  Copyright © 2017 Anthony Muratore & David Hamel & Tom Moshier. All rights reserved.
 //
 
 #import "GameViewController.h"
