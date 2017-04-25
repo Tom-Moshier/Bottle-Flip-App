@@ -1,0 +1,553 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8EBA548B1EAFFFAB00D707B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA548A1EAFFFAB00D707B5 /* main.m */; };
+		8EBA548E1EAFFFAB00D707B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA548D1EAFFFAB00D707B5 /* AppDelegate.m */; };
+		8EBA54901EAFFFAB00D707B5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA548F1EAFFFAB00D707B5 /* GameScene.sks */; };
+		8EBA54921EAFFFAB00D707B5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA54911EAFFFAB00D707B5 /* Actions.sks */; };
+		8EBA54951EAFFFAB00D707B5 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA54941EAFFFAB00D707B5 /* GameScene.m */; };
+		8EBA54981EAFFFAB00D707B5 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA54971EAFFFAB00D707B5 /* GameViewController.m */; };
+		8EBA549B1EAFFFAB00D707B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA54991EAFFFAB00D707B5 /* Main.storyboard */; };
+		8EBA549D1EAFFFAB00D707B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA549C1EAFFFAB00D707B5 /* Assets.xcassets */; };
+		8EBA54A01EAFFFAB00D707B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EBA549E1EAFFFAB00D707B5 /* LaunchScreen.storyboard */; };
+		8EBA54AB1EAFFFAB00D707B5 /* p07_muratore_hamel_moshierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA54AA1EAFFFAB00D707B5 /* p07_muratore_hamel_moshierTests.m */; };
+		8EBA54B61EAFFFAB00D707B5 /* p07_muratore_hamel_moshierUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EBA54B51EAFFFAB00D707B5 /* p07_muratore_hamel_moshierUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8EBA54A71EAFFFAB00D707B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EBA547E1EAFFFAA00D707B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EBA54851EAFFFAA00D707B5;
+			remoteInfo = "p07-muratore-hamel-moshier";
+		};
+		8EBA54B21EAFFFAB00D707B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EBA547E1EAFFFAA00D707B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EBA54851EAFFFAA00D707B5;
+			remoteInfo = "p07-muratore-hamel-moshier";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8EBA54861EAFFFAA00D707B5 /* p07-muratore-hamel-moshier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "p07-muratore-hamel-moshier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EBA548A1EAFFFAB00D707B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8EBA548C1EAFFFAB00D707B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8EBA548D1EAFFFAB00D707B5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8EBA548F1EAFFFAB00D707B5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		8EBA54911EAFFFAB00D707B5 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		8EBA54931EAFFFAB00D707B5 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		8EBA54941EAFFFAB00D707B5 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		8EBA54961EAFFFAB00D707B5 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		8EBA54971EAFFFAB00D707B5 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		8EBA549A1EAFFFAB00D707B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8EBA549C1EAFFFAB00D707B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8EBA549F1EAFFFAB00D707B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8EBA54A11EAFFFAB00D707B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EBA54A61EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "p07-muratore-hamel-moshierTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EBA54AA1EAFFFAB00D707B5 /* p07_muratore_hamel_moshierTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = p07_muratore_hamel_moshierTests.m; sourceTree = "<group>"; };
+		8EBA54AC1EAFFFAB00D707B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EBA54B11EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "p07-muratore-hamel-moshierUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EBA54B51EAFFFAB00D707B5 /* p07_muratore_hamel_moshierUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = p07_muratore_hamel_moshierUITests.m; sourceTree = "<group>"; };
+		8EBA54B71EAFFFAB00D707B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8EBA54831EAFFFAA00D707B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54A31EAFFFAB00D707B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54AE1EAFFFAB00D707B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8EBA547D1EAFFFAA00D707B5 = {
+			isa = PBXGroup;
+			children = (
+				8EBA54881EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */,
+				8EBA54A91EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests */,
+				8EBA54B41EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests */,
+				8EBA54871EAFFFAA00D707B5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8EBA54871EAFFFAA00D707B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8EBA54861EAFFFAA00D707B5 /* p07-muratore-hamel-moshier.app */,
+				8EBA54A61EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests.xctest */,
+				8EBA54B11EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8EBA54881EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */ = {
+			isa = PBXGroup;
+			children = (
+				8EBA548C1EAFFFAB00D707B5 /* AppDelegate.h */,
+				8EBA548D1EAFFFAB00D707B5 /* AppDelegate.m */,
+				8EBA548F1EAFFFAB00D707B5 /* GameScene.sks */,
+				8EBA54911EAFFFAB00D707B5 /* Actions.sks */,
+				8EBA54931EAFFFAB00D707B5 /* GameScene.h */,
+				8EBA54941EAFFFAB00D707B5 /* GameScene.m */,
+				8EBA54961EAFFFAB00D707B5 /* GameViewController.h */,
+				8EBA54971EAFFFAB00D707B5 /* GameViewController.m */,
+				8EBA54991EAFFFAB00D707B5 /* Main.storyboard */,
+				8EBA549C1EAFFFAB00D707B5 /* Assets.xcassets */,
+				8EBA549E1EAFFFAB00D707B5 /* LaunchScreen.storyboard */,
+				8EBA54A11EAFFFAB00D707B5 /* Info.plist */,
+				8EBA54891EAFFFAA00D707B5 /* Supporting Files */,
+			);
+			path = "p07-muratore-hamel-moshier";
+			sourceTree = "<group>";
+		};
+		8EBA54891EAFFFAA00D707B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8EBA548A1EAFFFAB00D707B5 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8EBA54A91EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests */ = {
+			isa = PBXGroup;
+			children = (
+				8EBA54AA1EAFFFAB00D707B5 /* p07_muratore_hamel_moshierTests.m */,
+				8EBA54AC1EAFFFAB00D707B5 /* Info.plist */,
+			);
+			path = "p07-muratore-hamel-moshierTests";
+			sourceTree = "<group>";
+		};
+		8EBA54B41EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8EBA54B51EAFFFAB00D707B5 /* p07_muratore_hamel_moshierUITests.m */,
+				8EBA54B71EAFFFAB00D707B5 /* Info.plist */,
+			);
+			path = "p07-muratore-hamel-moshierUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8EBA54851EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EBA54BA1EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshier" */;
+			buildPhases = (
+				8EBA54821EAFFFAA00D707B5 /* Sources */,
+				8EBA54831EAFFFAA00D707B5 /* Frameworks */,
+				8EBA54841EAFFFAA00D707B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "p07-muratore-hamel-moshier";
+			productName = "p07-muratore-hamel-moshier";
+			productReference = 8EBA54861EAFFFAA00D707B5 /* p07-muratore-hamel-moshier.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8EBA54A51EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EBA54BD1EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshierTests" */;
+			buildPhases = (
+				8EBA54A21EAFFFAB00D707B5 /* Sources */,
+				8EBA54A31EAFFFAB00D707B5 /* Frameworks */,
+				8EBA54A41EAFFFAB00D707B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8EBA54A81EAFFFAB00D707B5 /* PBXTargetDependency */,
+			);
+			name = "p07-muratore-hamel-moshierTests";
+			productName = "p07-muratore-hamel-moshierTests";
+			productReference = 8EBA54A61EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8EBA54B01EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EBA54C01EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshierUITests" */;
+			buildPhases = (
+				8EBA54AD1EAFFFAB00D707B5 /* Sources */,
+				8EBA54AE1EAFFFAB00D707B5 /* Frameworks */,
+				8EBA54AF1EAFFFAB00D707B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8EBA54B31EAFFFAB00D707B5 /* PBXTargetDependency */,
+			);
+			name = "p07-muratore-hamel-moshierUITests";
+			productName = "p07-muratore-hamel-moshierUITests";
+			productReference = 8EBA54B11EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8EBA547E1EAFFFAA00D707B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Anthony Muratore";
+				TargetAttributes = {
+					8EBA54851EAFFFAA00D707B5 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 958ULWU4Y6;
+						ProvisioningStyle = Automatic;
+					};
+					8EBA54A51EAFFFAB00D707B5 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 958ULWU4Y6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8EBA54851EAFFFAA00D707B5;
+					};
+					8EBA54B01EAFFFAB00D707B5 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 958ULWU4Y6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 8EBA54851EAFFFAA00D707B5;
+					};
+				};
+			};
+			buildConfigurationList = 8EBA54811EAFFFAA00D707B5 /* Build configuration list for PBXProject "p07-muratore-hamel-moshier" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8EBA547D1EAFFFAA00D707B5;
+			productRefGroup = 8EBA54871EAFFFAA00D707B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8EBA54851EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */,
+				8EBA54A51EAFFFAB00D707B5 /* p07-muratore-hamel-moshierTests */,
+				8EBA54B01EAFFFAB00D707B5 /* p07-muratore-hamel-moshierUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8EBA54841EAFFFAA00D707B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EBA549B1EAFFFAB00D707B5 /* Main.storyboard in Resources */,
+				8EBA54901EAFFFAB00D707B5 /* GameScene.sks in Resources */,
+				8EBA549D1EAFFFAB00D707B5 /* Assets.xcassets in Resources */,
+				8EBA54A01EAFFFAB00D707B5 /* LaunchScreen.storyboard in Resources */,
+				8EBA54921EAFFFAB00D707B5 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54A41EAFFFAB00D707B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54AF1EAFFFAB00D707B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8EBA54821EAFFFAA00D707B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EBA54981EAFFFAB00D707B5 /* GameViewController.m in Sources */,
+				8EBA548E1EAFFFAB00D707B5 /* AppDelegate.m in Sources */,
+				8EBA54951EAFFFAB00D707B5 /* GameScene.m in Sources */,
+				8EBA548B1EAFFFAB00D707B5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54A21EAFFFAB00D707B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EBA54AB1EAFFFAB00D707B5 /* p07_muratore_hamel_moshierTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EBA54AD1EAFFFAB00D707B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EBA54B61EAFFFAB00D707B5 /* p07_muratore_hamel_moshierUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8EBA54A81EAFFFAB00D707B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EBA54851EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */;
+			targetProxy = 8EBA54A71EAFFFAB00D707B5 /* PBXContainerItemProxy */;
+		};
+		8EBA54B31EAFFFAB00D707B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EBA54851EAFFFAA00D707B5 /* p07-muratore-hamel-moshier */;
+			targetProxy = 8EBA54B21EAFFFAB00D707B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8EBA54991EAFFFAB00D707B5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EBA549A1EAFFFAB00D707B5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8EBA549E1EAFFFAB00D707B5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EBA549F1EAFFFAB00D707B5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8EBA54B81EAFFFAB00D707B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8EBA54B91EAFFFAB00D707B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8EBA54BB1EAFFFAB00D707B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshier/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshier";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8EBA54BC1EAFFFAB00D707B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshier/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshier";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8EBA54BE1EAFFFAB00D707B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshierTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshierTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/p07-muratore-hamel-moshier.app/p07-muratore-hamel-moshier";
+			};
+			name = Debug;
+		};
+		8EBA54BF1EAFFFAB00D707B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshierTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshierTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/p07-muratore-hamel-moshier.app/p07-muratore-hamel-moshier";
+			};
+			name = Release;
+		};
+		8EBA54C11EAFFFAB00D707B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshierUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshierUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "p07-muratore-hamel-moshier";
+			};
+			name = Debug;
+		};
+		8EBA54C21EAFFFAB00D707B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 958ULWU4Y6;
+				INFOPLIST_FILE = "p07-muratore-hamel-moshierUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.anthonymuratore.p07-muratore-hamel-moshierUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "p07-muratore-hamel-moshier";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8EBA54811EAFFFAA00D707B5 /* Build configuration list for PBXProject "p07-muratore-hamel-moshier" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EBA54B81EAFFFAB00D707B5 /* Debug */,
+				8EBA54B91EAFFFAB00D707B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8EBA54BA1EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshier" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EBA54BB1EAFFFAB00D707B5 /* Debug */,
+				8EBA54BC1EAFFFAB00D707B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8EBA54BD1EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshierTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EBA54BE1EAFFFAB00D707B5 /* Debug */,
+				8EBA54BF1EAFFFAB00D707B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8EBA54C01EAFFFAB00D707B5 /* Build configuration list for PBXNativeTarget "p07-muratore-hamel-moshierUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EBA54C11EAFFFAB00D707B5 /* Debug */,
+				8EBA54C21EAFFFAB00D707B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8EBA547E1EAFFFAA00D707B5 /* Project object */;
+}
