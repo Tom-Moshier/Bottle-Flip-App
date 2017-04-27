@@ -16,6 +16,9 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 @interface GameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode *bottleSprite;
     bool isMoving;
+    
+    //one chance allows the bottle to only be picked up one and flipped once
+    bool oneChance;
 }
 
 @end
@@ -24,6 +27,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 
 - (void)didMoveToView:(SKView *)view {
     isMoving = false;
+    oneChance = false;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
     //allowing the platforms to change set y velocity
@@ -34,6 +38,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleSprite = [SKSpriteNode spriteNodeWithTexture:bottleTexture];
     [bottleSprite setScale:.1];
     
+    //setting up physics for bottle
     SKPhysicsBody *bottleBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleSprite.size];
     bottleSprite.physicsBody = bottleBody;
     bottleSprite.physicsBody.dynamic = NO; //enables forces to interact
@@ -50,8 +55,6 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     [self addChild:bottleSprite];
     
-    //setting up physics for bottle
-
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -62,15 +65,16 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     isMoving = false;
     if(bottleSprite.physicsBody.dynamic == NO) {
         bottleSprite.physicsBody.dynamic = YES;
+        oneChance = true;
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    isMoving = NO;
+    isMoving = false;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (isMoving) {
+    if (isMoving && !oneChance) {
         UITouch *touch = [touches anyObject];
         CGPoint touchLocation = [touch locationInNode:self];
         SKAction *moveSpriteToPointX = [SKAction moveToX:(touchLocation.x) duration:0.01];
