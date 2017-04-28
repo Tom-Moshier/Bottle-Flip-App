@@ -15,19 +15,28 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 
 @interface GameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode *bottleSprite;
-    bool isMoving;
     
-    //one chance allows the bottle to only be picked up one and flipped once
-    bool oneChance;
+    //checks to see bottle is good or not
+    bool gameOver;
+    
+    SKLabelNode* scoreLabel;
+    SKLabelNode* gameOverLabel;
+    SKLabelNode* finalScore;
+    SKLabelNode* startNode;
+    
+    int scoreNumber;
+    int clickCount;
 }
 
 @end
 
+
 @implementation GameScene
 
-- (void)didMoveToView:(SKView *)view {
-    isMoving = false;
-    oneChance = false;
+-(void) setUp {
+    NSLog(@"Click Count Set Up: %d",clickCount);
+    gameOver = false;
+    scoreNumber = 02;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
     //allowing the platforms to change set y velocity
@@ -55,26 +64,40 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     [self addChild:bottleSprite];
     
+    scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    scoreLabel.fontSize = 50;
+    scoreLabel.fontColor = [SKColor whiteColor];
+    scoreLabel.position = CGPointMake(0, self.frame.size.height/2 -100);
+    scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    scoreLabel.text = [NSString stringWithFormat:@"Score: %d", scoreNumber];
+    [self addChild:scoreLabel];
+}
+
+- (void)didMoveToView:(SKView *)view {
+    [self setUp];
+    clickCount = 1;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    isMoving = true;
+    if(gameOver) {
+        for (SKNode *node in [self children]) {
+            [node removeFromParent];
+        }
+        
+        [self setUp];
+    }
+    clickCount++;
+    NSLog(@"Click Count touchesBegan: %d",clickCount);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    isMoving = false;
-    if(bottleSprite.physicsBody.dynamic == NO) {
+    if(bottleSprite.physicsBody.dynamic == NO && !gameOver && clickCount == 2) {
         bottleSprite.physicsBody.dynamic = YES;
-        oneChance = true;
     }
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    isMoving = false;
-}
-
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (isMoving && !oneChance) {
+    if (!gameOver && clickCount == 2) {
         UITouch *touch = [touches anyObject];
         CGPoint touchLocation = [touch locationInNode:self];
         SKAction *moveSpriteToPointX = [SKAction moveToX:(touchLocation.x) duration:0.01];
@@ -85,6 +108,40 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    if(bottleSprite.position.y < -self.frame.size.height/2) {
+        gameOver = true;
+        for (SKNode *node in [self children]) {
+            [node removeFromParent];
+        }
+        [self gameEnded];
+    }
+}
+
+-(void)gameEnded {
+    clickCount = 0;
+    gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    gameOverLabel.fontSize = 70;
+    gameOverLabel.fontColor = [SKColor whiteColor];
+    gameOverLabel.position = CGPointMake(0.0f, 250.0f);;
+    gameOverLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    [gameOverLabel setText:@"Game Over"];
+    [self addChild:gameOverLabel];
+    
+    finalScore = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    finalScore.fontSize = 70;
+    finalScore.fontColor = [SKColor whiteColor];
+    finalScore.position = CGPointMake(0.0f, 0.0f);
+    finalScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    [finalScore setText:[NSString stringWithFormat:@"Final Score: %d", scoreNumber]];
+    [self addChild:finalScore];
+    
+    startNode = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    startNode.fontSize = 55;
+    startNode.fontColor = [SKColor whiteColor];
+    startNode.position = CGPointMake(0.0f, -250.0f);
+    startNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    [startNode setText:@"Tap to Try Again"];
+    [self addChild:startNode];
 }
 
 @end
