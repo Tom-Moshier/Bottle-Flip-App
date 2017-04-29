@@ -15,6 +15,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 
 @interface GameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode *bottleSprite;
+    SKSpriteNode *tableSprite;
     
     //checks to see bottle is good or not
     bool gameOver;
@@ -41,6 +42,36 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
     //allowing the platforms to change set y velocity
     self.physicsWorld.contactDelegate = self;
+    
+    
+    //create table sprite
+    float bottom = CGRectGetMinY(self.frame);
+    float horizMid = CGRectGetMidY(self.frame);
+    //float top = CGRectGetMaxY(self.frame);
+    //float left = CGRectGetMinX(self.frame);
+    float vertMid = CGRectGetMidX(self.frame);
+    //float right = CGRectGetMaxX(self.frame);
+    //float topQuarter = (top+horizMid)/2;
+    float bottomQuarter = (horizMid + bottom)/2;
+    //float leftQuarter = (left+vertMid)/2;
+    
+    SKTexture *tableTexture = [SKTexture textureWithImageNamed:@"table"];
+    tableTexture.filteringMode = SKTextureFilteringNearest;
+    tableSprite = [SKSpriteNode spriteNodeWithTexture:tableTexture];
+    [tableSprite setScale:.75];
+    tableSprite.position = CGPointMake(vertMid,bottomQuarter-100);
+    CGSize tableHitBox = CGSizeMake(tableSprite.frame.size.width,tableSprite.frame.size.height - 200);
+    SKPhysicsBody *tableBody = [SKPhysicsBody bodyWithRectangleOfSize:tableHitBox];
+    tableSprite.physicsBody = tableBody;
+    tableSprite.physicsBody.dynamic = NO;
+    
+    //adding collision handling to the table
+    tableSprite.physicsBody.usesPreciseCollisionDetection = YES;
+    tableSprite.physicsBody.categoryBitMask = CollisionCategoryTable;
+    tableSprite.physicsBody.collisionBitMask = CollisionCategoryBottle;
+    [self addChild:tableSprite];
+    
+    
     //creating bottle sprite
     SKTexture * bottleTexture = [SKTexture textureWithImageNamed:@"Water-Bottle-PNG-Clipart"];
     bottleTexture.filteringMode = SKTextureFilteringNearest;
@@ -60,7 +91,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     //adding collision handling to enable to correctly determine if it hit the table
     bottleSprite.physicsBody.usesPreciseCollisionDetection = YES;
     bottleSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
-    bottleSprite.physicsBody.collisionBitMask = 0; // will simulate using predetmined actions by platforms
+    bottleSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
     bottleSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     [self addChild:bottleSprite];
     
@@ -93,6 +124,8 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if(bottleSprite.physicsBody.dynamic == NO && !gameOver && clickCount == 2) {
         bottleSprite.physicsBody.dynamic = YES;
+        //[bottleSprite.physicsBody applyAngularImpulse:12];
+
     }
 }
 
@@ -105,6 +138,12 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         SKAction *moveGroup = [SKAction group:@[moveSpriteToPointY,moveSpriteToPointX]];
         [bottleSprite runAction:moveGroup];
     }
+}
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    NSLog(@"Contacted Table");
+    bottleSprite.physicsBody.velocity = CGVectorMake(0,0);
 }
 
 -(void)update:(CFTimeInterval)currentTime {
