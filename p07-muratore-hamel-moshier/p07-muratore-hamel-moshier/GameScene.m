@@ -14,7 +14,8 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 };
 
 @interface GameScene () <SKPhysicsContactDelegate> {
-    SKSpriteNode *bottleSprite;
+    SKSpriteNode *bottleTopSprite;
+    SKSpriteNode *bottleBottomSprite;
     SKSpriteNode *tableSprite;
     SKSpriteNode *holdNode;
     
@@ -76,43 +77,75 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     
     
     //creating bottle sprite
-    SKTexture * bottleTexture = [SKTexture textureWithImageNamed:@"Water-Bottle-PNG-Clipart"];
-    bottleTexture.filteringMode = SKTextureFilteringNearest;
-    bottleSprite = [SKSpriteNode spriteNodeWithTexture:bottleTexture];
-    [bottleSprite setScale:.1];
+    SKTexture * bottleTopTexture = [SKTexture textureWithImageNamed:@"bottletop"];
+    bottleTopTexture.filteringMode = SKTextureFilteringNearest;
+    bottleTopSprite = [SKSpriteNode spriteNodeWithTexture:bottleTopTexture];
+    [bottleTopSprite setScale:.1];
     
     //setting up physics for bottle
-    SKPhysicsBody *bottleBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleSprite.size];
-    bottleSprite.physicsBody = bottleBody;
-    bottleSprite.physicsBody.dynamic = YES; //enables forces to interact
-    bottleSprite.physicsBody.allowsRotation = YES; //needs to stay upright
-    bottleSprite.physicsBody.restitution = 0.1f;
-    bottleSprite.physicsBody.friction = 0.0f;
-    bottleSprite.physicsBody.angularDamping = 0.0f;
-    bottleSprite.physicsBody.linearDamping = 0.0f;
+    SKPhysicsBody *bottleTopBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleTopSprite.size];
+    bottleTopSprite.physicsBody = bottleTopBody;
+    bottleTopSprite.physicsBody.dynamic = YES; //enables forces to interact
+    bottleTopSprite.physicsBody.allowsRotation = YES; //needs to stay upright
+    bottleTopSprite.physicsBody.restitution = 0.1f;
+    bottleTopSprite.physicsBody.friction = 0.0f;
+    bottleTopSprite.physicsBody.angularDamping = 0.0f;
+    bottleTopSprite.physicsBody.linearDamping = 0.0f;
     
     //adding collision handling to correctly determine if it hit the table
-    bottleSprite.physicsBody.usesPreciseCollisionDetection = YES;
-    bottleSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
-    bottleSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
-    bottleSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
-    [self addChild:bottleSprite];
+    /*bottleTopSprite.physicsBody.usesPreciseCollisionDetection = YES;
+    bottleTopSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
+    bottleTopSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
+    bottleTopSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;*/
+    
+    //creating bottom bottle sprite
+    SKTexture * bottleBottomTexture = [SKTexture textureWithImageNamed:@"bottlebottom"];
+    bottleBottomTexture.filteringMode = SKTextureFilteringNearest;
+    bottleBottomSprite = [SKSpriteNode spriteNodeWithTexture:bottleBottomTexture];
+    [bottleBottomSprite setScale:.1];
+    
+    bottleTopSprite.position = CGPointMake(CGRectGetMidX(self.frame),bottleBottomSprite.position.y+160);
+    [self addChild:bottleTopSprite];
+    
+    //setting up physics for bottle
+    SKPhysicsBody *bottleBottomBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleBottomSprite.size];
+    bottleBottomSprite.physicsBody = bottleBottomBody;
+    bottleBottomSprite.physicsBody.dynamic = YES; //enables forces to interact
+    bottleBottomSprite.physicsBody.allowsRotation = YES; //needs to stay upright
+    bottleBottomSprite.physicsBody.restitution = 0.1f;
+    bottleBottomSprite.physicsBody.friction = 0.0f;
+    bottleBottomSprite.physicsBody.angularDamping = 0.0f;
+    bottleBottomSprite.physicsBody.linearDamping = 0.0f;
+    
+    //adding collision handling to correctly determine if it hit the table
+    bottleBottomSprite.physicsBody.usesPreciseCollisionDetection = YES;
+    bottleBottomSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
+    bottleBottomSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
+    bottleBottomSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
+    [self addChild:bottleBottomSprite];
+    
+    CGPoint fusePoint = CGPointMake(bottleTopSprite.position.x, CGRectGetMaxY(bottleTopSprite.frame));
+    SKPhysicsJointFixed *bottleFuse = [SKPhysicsJointFixed jointWithBodyA:bottleTopSprite.physicsBody bodyB:bottleBottomSprite.physicsBody anchor:fusePoint];
+    [self.scene.physicsWorld addJoint:bottleFuse];
     
     //create invisible node that we use to hold the bottle
     UIColor *color = [UIColor blueColor];
     holdNode = [SKSpriteNode spriteNodeWithColor:color size:CGSizeMake(5, 5)];
-    holdNode.position = CGPointMake(holdNode.position.x,bottleSprite.position.y + (bottleSprite.size.height/2));
+    holdNode.position = CGPointMake(holdNode.position.x,bottleTopSprite.position.y + (bottleTopSprite.size.height/2));
     holdNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:holdNode.size];
     holdNode.physicsBody.dynamic = NO;
     holdNode.physicsBody.allowsRotation = YES;
-    holdNode.hidden = true;
+    holdNode.physicsBody.friction = 0.0f;
+    holdNode.physicsBody.angularDamping = 0.0f;
+    holdNode.physicsBody.linearDamping = 0.0f;
+    //holdNode.hidden = true;
     [self addChild:holdNode];
     
     
     //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA: holdNode.physicsBody bodyB: bottleSprite.physicsBody anchor: CGPointMake(CGRectGetMaxX(holdNode.frame), CGRectGetMinY(bottleSprite.frame))];
-    CGPoint bottleCap = CGPointMake(bottleSprite.position.x,bottleSprite.size.height/2);
+    CGPoint bottleCap = CGPointMake(bottleTopSprite.position.x,bottleTopSprite.size.height/2);
     //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA:holdNode.physicsBody bodyB:bottleSprite.physicsBody anchorA:holdNode.position anchorB:bottleCap];
-    SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:holdNode.physicsBody bodyB:bottleSprite.physicsBody anchor:bottleCap];
+    SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:holdNode.physicsBody bodyB:bottleTopSprite.physicsBody anchor:bottleCap];
     
     [self.scene.physicsWorld addJoint:joint];
     
@@ -171,7 +204,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    if(bottleSprite.position.y < -self.frame.size.height/2) {
+    if(bottleBottomSprite.position.y < -self.frame.size.height/2) {
         gameOver = true;
         for (SKNode *node in [self children]) {
             [node removeFromParent];
