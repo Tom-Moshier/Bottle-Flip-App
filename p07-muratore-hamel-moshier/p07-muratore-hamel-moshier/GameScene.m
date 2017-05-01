@@ -16,6 +16,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 @interface GameScene () <SKPhysicsContactDelegate> {
     SKSpriteNode *bottleSprite;
     SKSpriteNode *tableSprite;
+    SKSpriteNode *holdNode;
     
     //checks to see bottle is good or not
     bool gameOver;
@@ -40,6 +41,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     scoreNumber = 02;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
+    self.physicsWorld.speed = 1.75;
     //allowing the platforms to change set y velocity
     self.physicsWorld.contactDelegate = self;
     
@@ -55,6 +57,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     float bottomQuarter = (horizMid + bottom)/2;
     //float leftQuarter = (left+vertMid)/2;
     
+    //create texture for table
     SKTexture *tableTexture = [SKTexture textureWithImageNamed:@"table"];
     tableTexture.filteringMode = SKTextureFilteringNearest;
     tableSprite = [SKSpriteNode spriteNodeWithTexture:tableTexture];
@@ -81,19 +84,38 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     //setting up physics for bottle
     SKPhysicsBody *bottleBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleSprite.size];
     bottleSprite.physicsBody = bottleBody;
-    bottleSprite.physicsBody.dynamic = NO; //enables forces to interact
+    bottleSprite.physicsBody.dynamic = YES; //enables forces to interact
     bottleSprite.physicsBody.allowsRotation = YES; //needs to stay upright
-    bottleSprite.physicsBody.restitution = 1.0f;
+    bottleSprite.physicsBody.restitution = 0.1f;
     bottleSprite.physicsBody.friction = 0.0f;
     bottleSprite.physicsBody.angularDamping = 0.0f;
     bottleSprite.physicsBody.linearDamping = 0.0f;
     
-    //adding collision handling to enable to correctly determine if it hit the table
+    //adding collision handling to correctly determine if it hit the table
     bottleSprite.physicsBody.usesPreciseCollisionDetection = YES;
     bottleSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
     bottleSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
     bottleSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     [self addChild:bottleSprite];
+    
+    //create invisible node that we use to hold the bottle
+    UIColor *color = [UIColor blueColor];
+    holdNode = [SKSpriteNode spriteNodeWithColor:color size:CGSizeMake(5, 5)];
+    holdNode.position = CGPointMake(holdNode.position.x,bottleSprite.position.y + (bottleSprite.size.height/2));
+    holdNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:holdNode.size];
+    holdNode.physicsBody.dynamic = NO;
+    holdNode.physicsBody.allowsRotation = YES;
+    holdNode.hidden = true;
+    [self addChild:holdNode];
+    
+    
+    //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA: holdNode.physicsBody bodyB: bottleSprite.physicsBody anchor: CGPointMake(CGRectGetMaxX(holdNode.frame), CGRectGetMinY(bottleSprite.frame))];
+    CGPoint bottleCap = CGPointMake(bottleSprite.position.x,bottleSprite.size.height/2);
+    //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA:holdNode.physicsBody bodyB:bottleSprite.physicsBody anchorA:holdNode.position anchorB:bottleCap];
+    SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:holdNode.physicsBody bodyB:bottleSprite.physicsBody anchor:bottleCap];
+    
+    [self.scene.physicsWorld addJoint:joint];
+    
     
     scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     scoreLabel.fontSize = 50;
@@ -122,8 +144,8 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if(bottleSprite.physicsBody.dynamic == NO && !gameOver && clickCount == 2) {
-        bottleSprite.physicsBody.dynamic = YES;
+    if(holdNode.physicsBody.dynamic == NO && !gameOver && clickCount == 2) {
+        holdNode.physicsBody.dynamic = YES;
         //[bottleSprite.physicsBody applyAngularImpulse:12];
 
     }
@@ -136,14 +158,16 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         SKAction *moveSpriteToPointX = [SKAction moveToX:(touchLocation.x) duration:0.01];
         SKAction *moveSpriteToPointY = [SKAction moveToY:(touchLocation.y) duration:0.01];
         SKAction *moveGroup = [SKAction group:@[moveSpriteToPointY,moveSpriteToPointX]];
-        [bottleSprite runAction:moveGroup];
+        [holdNode runAction:moveGroup];
     }
 }
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
     NSLog(@"Contacted Table");
-    bottleSprite.physicsBody.velocity = CGVectorMake(0,0);
+    gameOver = true;
+    clickCount = 0;
+    //bottleSprite.physicsBody.velocity = CGVectorMake(0,0);
 }
 
 -(void)update:(CFTimeInterval)currentTime {
