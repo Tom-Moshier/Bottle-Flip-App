@@ -35,6 +35,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     
     int bottomOnTable;
     int topOnTable;
+    int validToss;
 }
 
 @end
@@ -48,7 +49,11 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     //scoreNumber = 00;
     topOnTable = 0;
     bottomOnTable = 0;
-    
+    if(validToss == 1){
+        NSLog(@"Toss was valid and adding one to score");
+        scoreNumber++;
+    }
+    validToss = 0;
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
     self.physicsWorld.speed = 1.5;
     //allowing the platforms to change set y velocity
@@ -186,7 +191,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         [self setUp];
     }
     clickCount++;
-    //NSLog(@"Click Count touchesBegan: %d",clickCount);
+    NSLog(@"Click Count touchesBegan: %d",clickCount);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -212,24 +217,26 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 {
     if([contact.bodyB.node.name  isEqual: @"bottom"]){
         bottomOnTable = 1;
+        NSLog(@"Bottom on table");
     }
     
     if([contact.bodyB.node.name  isEqual: @"top"]){
         topOnTable = 1;
+        NSLog(@"Top on table");
     }
     
     //NSLog(@"%@", contact.bodyB.node.name);
 
-    NSLog(@"Contacted Table");
+    //NSLog(@"Contacted Table");
     gameOver = true;
     clickCount = 0;
     
     //while((bottleBottomSprite.physicsBody.velocity.dx == 0) && (bottleBottomSprite.physicsBody.velocity.dy == 0)){
         //NSLog(@"No velocity");
-        if([self validToss]){
-            scoreNumber++;
-            scoreLabel.text = [NSString stringWithFormat:@"Score: %d", scoreNumber];
-        }
+        //if([self validToss]){
+        //    scoreNumber++;
+        //    scoreLabel.text = [NSString stringWithFormat:@"Score: %d", scoreNumber];
+       /// }
         //break;
     //}
     
@@ -237,18 +244,21 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     //bottleSprite.physicsBody.velocity = CGVectorMake(0,0);
 }
 
--(BOOL)validToss{
+-(void)validToss{
     if(topOnTable == 1){
-        return false;
+        validToss = 0;
     }
     
     if((topOnTable == 0) && (bottomOnTable == 1)){
-        return true;
+        validToss = 1;
     }
-    return false;
+    NSLog(@"Valid toss value: %d", validToss);
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    //if(validToss != 1){
+        [self validToss];
+    //}
     if(bottleBottomSprite.position.y < -self.frame.size.height/2) {
         gameOver = true;
         for (SKNode *node in [self children]) {
@@ -259,8 +269,9 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 -(void)gameEnded {
+    NSLog(@"%d", scoreNumber);
     clickCount = 0;
-    scoreNumber = 0;
+    //scoreNumber = 0;
     
     if(scoreNumber > highScore){
         highScore = scoreNumber;
@@ -288,6 +299,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     startNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     [startNode setText:@"Tap to Try Again"];
     [self addChild:startNode];
+    //scoreNumber = 0;
 }
 
 @end
