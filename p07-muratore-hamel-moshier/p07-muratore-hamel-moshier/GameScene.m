@@ -42,7 +42,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     scoreNumber = 02;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
-    self.physicsWorld.speed = 1.75;
+    self.physicsWorld.speed = 1.5;
     //allowing the platforms to change set y velocity
     self.physicsWorld.contactDelegate = self;
     
@@ -76,27 +76,11 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     [self addChild:tableSprite];
     
     
-    //creating bottle sprite
+    //creating bottle top sprite
     SKTexture * bottleTopTexture = [SKTexture textureWithImageNamed:@"bottletop"];
     bottleTopTexture.filteringMode = SKTextureFilteringNearest;
     bottleTopSprite = [SKSpriteNode spriteNodeWithTexture:bottleTopTexture];
     [bottleTopSprite setScale:.1];
-    
-    //setting up physics for bottle
-    SKPhysicsBody *bottleTopBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleTopSprite.size];
-    bottleTopSprite.physicsBody = bottleTopBody;
-    bottleTopSprite.physicsBody.dynamic = YES; //enables forces to interact
-    bottleTopSprite.physicsBody.allowsRotation = YES; //needs to stay upright
-    bottleTopSprite.physicsBody.restitution = 0.1f;
-    bottleTopSprite.physicsBody.friction = 0.0f;
-    bottleTopSprite.physicsBody.angularDamping = 0.0f;
-    bottleTopSprite.physicsBody.linearDamping = 0.0f;
-    
-    //adding collision handling to correctly determine if it hit the table
-    /*bottleTopSprite.physicsBody.usesPreciseCollisionDetection = YES;
-    bottleTopSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
-    bottleTopSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
-    bottleTopSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;*/
     
     //creating bottom bottle sprite
     SKTexture * bottleBottomTexture = [SKTexture textureWithImageNamed:@"bottlebottom"];
@@ -104,7 +88,25 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleBottomSprite = [SKSpriteNode spriteNodeWithTexture:bottleBottomTexture];
     [bottleBottomSprite setScale:.1];
     
-    bottleTopSprite.position = CGPointMake(CGRectGetMidX(self.frame),bottleBottomSprite.position.y+160);
+    bottleTopSprite.position = CGPointMake(CGRectGetMidX(self.frame),bottleBottomSprite.position.y+150);
+    
+    //setting up physics for bottle
+    SKPhysicsBody *bottleTopBody = [SKPhysicsBody bodyWithRectangleOfSize:bottleTopSprite.size];
+    bottleTopSprite.physicsBody = bottleTopBody;
+    bottleTopSprite.physicsBody.dynamic = YES; //enables forces to interact
+    bottleTopSprite.physicsBody.allowsRotation = YES; //needs to stay upright
+    bottleTopSprite.physicsBody.restitution = 0.1f;
+    //bottleTopSprite.physicsBody.friction = 0.0f;
+    bottleTopSprite.physicsBody.angularDamping = 0.0f;
+    bottleTopSprite.physicsBody.linearDamping = 0.0f;
+    bottleTopSprite.physicsBody.mass = 1;
+    
+    //adding collision handling to correctly determine if it hit the table
+    /*bottleTopSprite.physicsBody.usesPreciseCollisionDetection = YES;
+    bottleTopSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
+    bottleTopSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
+    bottleTopSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;*/
+    
     [self addChild:bottleTopSprite];
     
     //setting up physics for bottle
@@ -113,9 +115,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleBottomSprite.physicsBody.dynamic = YES; //enables forces to interact
     bottleBottomSprite.physicsBody.allowsRotation = YES; //needs to stay upright
     bottleBottomSprite.physicsBody.restitution = 0.1f;
-    bottleBottomSprite.physicsBody.friction = 0.0f;
+    //bottleBottomSprite.physicsBody.friction = 0.0f;
     bottleBottomSprite.physicsBody.angularDamping = 0.0f;
     bottleBottomSprite.physicsBody.linearDamping = 0.0f;
+    bottleBottomSprite.physicsBody.mass = bottleTopSprite.physicsBody.mass * 10;
     
     //adding collision handling to correctly determine if it hit the table
     bottleBottomSprite.physicsBody.usesPreciseCollisionDetection = YES;
@@ -143,7 +146,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     
     
     //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA: holdNode.physicsBody bodyB: bottleSprite.physicsBody anchor: CGPointMake(CGRectGetMaxX(holdNode.frame), CGRectGetMinY(bottleSprite.frame))];
-    CGPoint bottleCap = CGPointMake(bottleTopSprite.position.x,bottleTopSprite.size.height/2);
+    CGPoint bottleCap = CGPointMake(bottleTopSprite.position.x,bottleTopSprite.position.y + 100);
     //SKPhysicsJointLimit *joint = [SKPhysicsJointLimit jointWithBodyA:holdNode.physicsBody bodyB:bottleSprite.physicsBody anchorA:holdNode.position anchorB:bottleCap];
     SKPhysicsJointPin *joint = [SKPhysicsJointPin jointWithBodyA:holdNode.physicsBody bodyB:bottleTopSprite.physicsBody anchor:bottleCap];
     
