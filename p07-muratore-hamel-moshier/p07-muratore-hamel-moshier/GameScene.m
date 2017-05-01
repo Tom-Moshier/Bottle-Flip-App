@@ -115,10 +115,9 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleBottomSprite.physicsBody.dynamic = YES; //enables forces to interact
     bottleBottomSprite.physicsBody.allowsRotation = YES; //needs to stay upright
     bottleBottomSprite.physicsBody.restitution = 0.1f;
-    //bottleBottomSprite.physicsBody.friction = 0.0f;
     bottleBottomSprite.physicsBody.angularDamping = 0.0f;
     bottleBottomSprite.physicsBody.linearDamping = 0.0f;
-    bottleBottomSprite.physicsBody.mass = bottleTopSprite.physicsBody.mass * 10;
+    bottleBottomSprite.physicsBody.mass = bottleTopSprite.physicsBody.mass * 5;
     
     //adding collision handling to correctly determine if it hit the table
     bottleBottomSprite.physicsBody.usesPreciseCollisionDetection = YES;
@@ -141,7 +140,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     holdNode.physicsBody.friction = 0.0f;
     holdNode.physicsBody.angularDamping = 0.0f;
     holdNode.physicsBody.linearDamping = 0.0f;
-    //holdNode.hidden = true;
+    holdNode.hidden = true;
     [self addChild:holdNode];
     
     
