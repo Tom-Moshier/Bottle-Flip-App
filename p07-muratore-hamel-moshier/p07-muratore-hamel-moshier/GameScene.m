@@ -11,6 +11,8 @@
 typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     CollisionCategoryBottle   = 0x1 << 0,
     CollisionCategoryTable = 0x1 << 1,
+    CollisionCategoryTop = 0x1 << 2,
+    CollisionCategoryBottom = 0x1 <<3
 };
 
 @interface GameScene () <SKPhysicsContactDelegate> {
@@ -29,6 +31,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     
     int scoreNumber;
     int clickCount;
+    int highScore;
+    
+    int bottomOnTable;
+    int topOnTable;
 }
 
 @end
@@ -39,7 +45,9 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 -(void) setUp {
     NSLog(@"Click Count Set Up: %d",clickCount);
     gameOver = false;
-    scoreNumber = 02;
+    //scoreNumber = 00;
+    topOnTable = 0;
+    bottomOnTable = 0;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, -9.8f);
     self.physicsWorld.speed = 1.5;
@@ -72,7 +80,8 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     //adding collision handling to the table
     tableSprite.physicsBody.usesPreciseCollisionDetection = YES;
     tableSprite.physicsBody.categoryBitMask = CollisionCategoryTable;
-    tableSprite.physicsBody.collisionBitMask = CollisionCategoryBottle;
+    tableSprite.physicsBody.collisionBitMask = CollisionCategoryTop;
+    tableSprite.physicsBody.collisionBitMask = CollisionCategoryBottom;
     [self addChild:tableSprite];
     
     
@@ -100,12 +109,13 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleTopSprite.physicsBody.angularDamping = 0.0f;
     bottleTopSprite.physicsBody.linearDamping = 0.0f;
     bottleTopSprite.physicsBody.mass = 1;
+    bottleTopSprite.name = @"top";
     
     //adding collision handling to correctly determine if it hit the table
-    /*bottleTopSprite.physicsBody.usesPreciseCollisionDetection = YES;
-    bottleTopSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
+    bottleTopSprite.physicsBody.usesPreciseCollisionDetection = YES;
+    bottleTopSprite.physicsBody.categoryBitMask = CollisionCategoryTop;
     bottleTopSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
-    bottleTopSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;*/
+    bottleTopSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     
     [self addChild:bottleTopSprite];
     
@@ -118,10 +128,11 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottleBottomSprite.physicsBody.angularDamping = 0.0f;
     bottleBottomSprite.physicsBody.linearDamping = 0.0f;
     bottleBottomSprite.physicsBody.mass = bottleTopSprite.physicsBody.mass * 5;
+    bottleBottomSprite.name = @"bottom";
     
     //adding collision handling to correctly determine if it hit the table
     bottleBottomSprite.physicsBody.usesPreciseCollisionDetection = YES;
-    bottleBottomSprite.physicsBody.categoryBitMask = CollisionCategoryBottle;
+    bottleBottomSprite.physicsBody.categoryBitMask = CollisionCategoryBottom;
     bottleBottomSprite.physicsBody.collisionBitMask = CollisionCategoryTable; // will simulate using predetmined actions by platforms
     bottleBottomSprite.physicsBody.contactTestBitMask = CollisionCategoryTable;
     [self addChild:bottleBottomSprite];
@@ -175,7 +186,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         [self setUp];
     }
     clickCount++;
-    NSLog(@"Click Count touchesBegan: %d",clickCount);
+    //NSLog(@"Click Count touchesBegan: %d",clickCount);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -199,10 +210,42 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 
 -(void)didBeginContact:(SKPhysicsContact *)contact
 {
+    if([contact.bodyB.node.name  isEqual: @"bottom"]){
+        bottomOnTable = 1;
+    }
+    
+    if([contact.bodyB.node.name  isEqual: @"top"]){
+        topOnTable = 1;
+    }
+    
+    //NSLog(@"%@", contact.bodyB.node.name);
+
     NSLog(@"Contacted Table");
     gameOver = true;
     clickCount = 0;
+    
+    //while((bottleBottomSprite.physicsBody.velocity.dx == 0) && (bottleBottomSprite.physicsBody.velocity.dy == 0)){
+        //NSLog(@"No velocity");
+        if([self validToss]){
+            scoreNumber++;
+            scoreLabel.text = [NSString stringWithFormat:@"Score: %d", scoreNumber];
+        }
+        //break;
+    //}
+    
+    
     //bottleSprite.physicsBody.velocity = CGVectorMake(0,0);
+}
+
+-(BOOL)validToss{
+    if(topOnTable == 1){
+        return false;
+    }
+    
+    if((topOnTable == 0) && (bottomOnTable == 1)){
+        return true;
+    }
+    return false;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -217,6 +260,11 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 
 -(void)gameEnded {
     clickCount = 0;
+    scoreNumber = 0;
+    
+    if(scoreNumber > highScore){
+        highScore = scoreNumber;
+    }
     gameOverLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     gameOverLabel.fontSize = 70;
     gameOverLabel.fontColor = [SKColor whiteColor];
