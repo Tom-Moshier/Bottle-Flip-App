@@ -45,6 +45,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 @implementation GameScene
 
 -(void) setUp {
+    self.backgroundColor = [SKColor blackColor];
     didFlip = false;
     NSLog(@"Click Count Set Up: %d",clickCount);
     gameOver = false;
@@ -266,6 +267,12 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
             didFlip = true;
      }
     if(holdNode.physicsBody.dynamic == YES && bottleBottomSprite.physicsBody.velocity.dy > -0.001 && bottleBottomSprite.physicsBody.velocity.dy < 0.001 &&bottleBottomSprite.physicsBody.velocity.dx > -0.001 && bottleBottomSprite.physicsBody.velocity.dx < 0.001 && bottleBottomSprite.position.y < tableSprite.position.y+100) {
+        if(validToss == 1) {
+            self.backgroundColor = [SKColor greenColor];
+        }
+        if(validToss == 0) {
+            self.backgroundColor = [SKColor redColor];
+        }
         gameOver = true;
         clickCount = 0;
     }
