@@ -24,6 +24,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bool gameOver;
     bool didFlip;
     bool firstTry;
+    bool gameDidEnd;
     
     SKLabelNode* scoreLabel;
     SKLabelNode* gameOverLabel;
@@ -45,6 +46,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 @implementation GameScene
 
 -(void) setUp {
+    gameDidEnd = false;
     self.backgroundColor = [SKColor blackColor];
     didFlip = false;
     NSLog(@"Click Count Set Up: %d",clickCount);
@@ -267,10 +269,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
             didFlip = true;
      }
     if(holdNode.physicsBody.dynamic == YES && bottleBottomSprite.physicsBody.velocity.dy > -0.001 && bottleBottomSprite.physicsBody.velocity.dy < 0.001 &&bottleBottomSprite.physicsBody.velocity.dx > -0.001 && bottleBottomSprite.physicsBody.velocity.dx < 0.001 && bottleBottomSprite.position.y < tableSprite.position.y+100) {
-        if(validToss == 1) {
+        if(validToss == 1 && gameDidEnd == false) {
             self.backgroundColor = [SKColor greenColor];
         }
-        if(validToss == 0) {
+        if(validToss == 0 && gameDidEnd == false) {
             self.backgroundColor = [SKColor redColor];
         }
         gameOver = true;
@@ -279,9 +281,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 -(void)gameEnded {
+    gameDidEnd = true;
     NSLog(@"%d", scoreNumber);
     clickCount = 0;
-    
+    self.backgroundColor = [SKColor blackColor];
     if(scoreNumber > highScore){
         highScore = scoreNumber;
     }
