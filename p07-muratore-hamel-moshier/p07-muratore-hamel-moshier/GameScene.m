@@ -53,6 +53,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     bottomOnTable = 0;
     if(firstTry) {
         scoreNumber = 0;
+        validToss = 0;
     }
     if(validToss == 1){
         NSLog(@"Toss was valid and adding one to score");
