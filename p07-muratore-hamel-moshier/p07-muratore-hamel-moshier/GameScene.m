@@ -23,6 +23,8 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     
     //checks to see bottle is good or not
     bool gameOver;
+    bool didFlip;
+    bool firstTry;
     
     SKLabelNode* scoreLabel;
     SKLabelNode* gameOverLabel;
@@ -44,11 +46,15 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 @implementation GameScene
 
 -(void) setUp {
+    didFlip = false;
     NSLog(@"Click Count Set Up: %d",clickCount);
     gameOver = false;
     //scoreNumber = 00;
     topOnTable = 0;
     bottomOnTable = 0;
+    if(firstTry) {
+        scoreNumber = 0;
+    }
     if(validToss == 1){
         NSLog(@"Toss was valid and adding one to score");
         scoreNumber++;
@@ -178,6 +184,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 }
 
 - (void)didMoveToView:(SKView *)view {
+    firstTry = true;
     [self setUp];
     clickCount = 1;
 }
@@ -197,6 +204,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if(holdNode.physicsBody.dynamic == NO && !gameOver && clickCount == 2) {
         holdNode.physicsBody.dynamic = YES;
+        firstTry = false;
         //[bottleSprite.physicsBody applyAngularImpulse:12];
 
     }
@@ -249,10 +257,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         validToss = 0;
     }
     
-    if((topOnTable == 0) && (bottomOnTable == 1)){
+    if((topOnTable == 0) && (bottomOnTable == 1) && didFlip){
         validToss = 1;
     }
-    NSLog(@"Valid toss value: %d", validToss);
+    //NSLog(@"Valid toss value: %d", validToss);
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -266,12 +274,17 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         }
         [self gameEnded];
     }
+    if(holdNode.physicsBody.dynamic == YES && (bottleBottomSprite.position.y + self.frame.size.height - 148 > bottleTopSprite.position.y +self.frame.size.height)) {
+            NSLog(@"BOttom: %f, TOP: %f", bottleBottomSprite.position.y, bottleTopSprite.position.y);
+            didFlip = true;
+            NSLog(@"flip: %d",didFlip);
+     }
+    NSLog(@"flip: %d",didFlip);
 }
 
 -(void)gameEnded {
     NSLog(@"%d", scoreNumber);
     clickCount = 0;
-    //scoreNumber = 0;
     
     if(scoreNumber > highScore){
         highScore = scoreNumber;
@@ -299,7 +312,7 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     startNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     [startNode setText:@"Tap to Try Again"];
     [self addChild:startNode];
-    //scoreNumber = 0;
+    firstTry = true;
 }
 
 @end
