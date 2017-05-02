@@ -239,9 +239,6 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
         topOnTable = 1;
         NSLog(@"Top on table");
     }
-    
-    gameOver = true;
-    clickCount = 0;
 }
 
 -(void)validToss{
@@ -267,6 +264,10 @@ typedef NS_OPTIONS(uint32_t, CollisionCategory) {
     if(holdNode.physicsBody.dynamic == YES && (bottleBottomSprite.position.y + self.frame.size.height - 148 > bottleTopSprite.position.y +self.frame.size.height)) {
             didFlip = true;
      }
+    if(holdNode.physicsBody.dynamic == YES && bottleBottomSprite.physicsBody.velocity.dy > -0.001 && bottleBottomSprite.physicsBody.velocity.dy < 0.001 &&bottleBottomSprite.physicsBody.velocity.dx > -0.001 && bottleBottomSprite.physicsBody.velocity.dx < 0.001 && bottleBottomSprite.position.y < tableSprite.position.y+100) {
+        gameOver = true;
+        clickCount = 0;
+    }
 }
 
 -(void)gameEnded {
